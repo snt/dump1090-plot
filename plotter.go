@@ -32,7 +32,7 @@ func plotFiles(destDirectory string, inputBstCsvFiles []string, center Pos, apiK
 		outFn := path.Join(destDirectory, fmt.Sprintf("plot-%s.html", path.Base(fn)))
 		err := plot(fn, outFn, center, apiKey)
 		if err != nil {
-			log.Printf("skipping csv %s\n", fn)
+			log.Printf("skipping csv %s for %v\n", fn, err)
 		}
 	}
 }
@@ -66,11 +66,12 @@ func plot(csvFn string, htmlFn string, center Pos, apiKey string) error {
 			break
 		}
 		if err != nil {
-			log.Println("failed to parse csv")
-			return err
+			log.Printf("failed to parse csv err=[%v]\n", err)
+			continue
+			//return err
 		}
 
-		// we need messages with include lat and lon (MSG,2, ... and MSG,3, ...)
+		// we need messages with lat and lon (MSG,2, ... and MSG,3, ...)
 		if !(cs[0] == "MSG" && (cs[1] == "2" || cs[1] == "3")) {
 			continue
 		}

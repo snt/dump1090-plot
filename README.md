@@ -18,6 +18,8 @@ Collect CVSs like this(assuming `dump1090` is running on localhost.):
 while true; do timeout 24h nc localhost 30003 > adsb-24h-$(date +%Y-%m-%d_%H.%M).csv; done
 ```
 
+Or use [snt/dump1090-record](https://github.com/snt/dump1090-record).
+
 # run
 
 Run the code:
